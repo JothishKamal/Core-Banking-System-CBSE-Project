@@ -21,6 +21,7 @@ def CreateAccount():
             while True:
                 if OTPVerification(user_gmail_id):
                     print('OTP verified successfully.')
+                    print()
                     break
                 else:
                     print("OTP failed to verify. Please try again.")
@@ -33,15 +34,15 @@ def CreateAccount():
                 else:
                     print("Passwords don't match. Please try again.")
                     continue
-            user_name = input("Please enter your name: ")
+            user_name = input("Please enter your Name: ")
             user_dob = input("Please enter your Date of Birth (YYYY-MM-DD): ")
             query = "insert into user_details values(%s, %s, '%s', '%s', '%s', '%s', 0)" % (user_aadhar, user_mobile_no, user_gmail_id, user_passwd, user_name, user_dob)
             cu.execute(query)
             print("Account created!")
-            print()
 
             loop2 = True
             while loop2:
+                print()
                 choice_3 = input("Would you like to create another account? (Yes/No): ")
                 if choice_3 == "Yes" or choice_3 == "yes":
                     break
@@ -50,7 +51,6 @@ def CreateAccount():
                     loop2 = False
                 else:
                     print("Invalid choice. Please enter your choice again.")
-                    print()
                     continue
         elif choice_2 == "No" or choice_2 == "no":
             break
@@ -71,12 +71,45 @@ def LoginAccount():
         print()
         temp_g = input("Please enter your G-Mail ID: ")
         temp_p = input("Please enter your password: ")
+        print()
         for i in range(len(data)):
             if temp_g == data[i][2]:
-                count
-
-
-
+                count = count + 1
+        if count == 1:
+            if temp_g == data[i][2] and temp_p == data[i][3]:
+                while True:
+                    if OTPVerification(temp_g):
+                        print('OTP verified successfully.')
+                        logged_in = True
+                        loop = False
+                        break
+                    else:
+                        print("OTP failed to verify. Please try again.")
+                        continue
+            else:
+                print("Wrong G-Mail/Password. Please try again.")
+                continue
+        elif count == 0:
+            print("No Accounts found. Please try again.")
+        else:
+            print("Accounts with the same email has been found. Please enter your Aadhar Number to continue.")
+            loop2 = True
+            while loop2:
+                print()
+                temp_a = int(input("Please enter your Aadhar Number: "))
+                for i in range(len(data)):
+                    if temp_g == data[i][2] and temp_p == data[i][3] and temp_a == data[i][0]:
+                        print()
+                        print("Successfully logged in! Welcome back,", data[i][4])
+                        logged_in = True
+                        loop = False
+                        loop2 = False
+                        break
+                else:
+                    print()
+                    print("Try again.")
+                    loop2 = False
+                    continue
 
 # OTP Verification
 def OTPVerification(mail):
@@ -92,6 +125,7 @@ Hello Customer,
 
 Your OTP for verification is: ''' + str(otp)
     smtp.sendmail('abcbank2022.3@gmail.com', mail, message)
+    print()
     print("OTP sent. Please check your mail.")
     iotp = int(input("Please enter the OTP sent in the given email: "))
     if iotp == otp:
@@ -105,6 +139,7 @@ print("Welcome to ABC Bank, choose one of the options to get started:")
 print()
 
 while True:
+    print()
     print('''--------------------------------------------------------------------------------------------------------------
 1. Create an Account
 2. Log into an existing Account
@@ -114,7 +149,6 @@ while True:
     choice = int(input("Enter your choice: "))
     if choice == 1:
         CreateAccount()
-
     elif choice == 2:
         LoginAccount()
     elif choice == 3:
@@ -122,11 +156,3 @@ while True:
     else:
         print()
         print("Invalid choice. Please select again:")
-        print()
-        print('''--------------------------------------------------------------------------------------------------------------
-1. Create an Account
-2. Log into an existing Account
-3. Manage Account
-4. Exit
---------------------------------------------------------------------------------------------------------------
-        ''')
