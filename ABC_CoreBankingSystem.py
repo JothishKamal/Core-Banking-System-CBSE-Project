@@ -1,12 +1,14 @@
+import mysql.connector as spc
+co = spc.connect(host='localhost', user='toor', passwd='')
+
+
 # Creating a Bank Account
 def CreateAccount():
     # OTP Password = nsiruyegnabfpawh
-    # create database ABC_CBS;
-    # use database ABC_CBS;
-    # create table user_details(Aadhar bigint primary key, Mobile_No bigint, GMail_ID varchar(50), Password varchar(50), Name varchar(50), DateOfBirth date, Balance bigint default(0));
-    import mysql.connector as spc
-    c_o = spc.connect(host='localhost', user='toor', passwd='', database='test_project')
-    cu = c_o.cursor()
+    # cu.execute("create database ABC_CBS;")
+    cu = co.cursor()
+    cu.execute("use ABC_CBS;")
+    # cu.execute("create table user_details(Aadhar bigint primary key, Mobile_No bigint, GMail_ID varchar(50), Password varchar(50), Name varchar(50), DateOfBirth date, Balance bigint default 0);")
     loop = True
     while loop:
         print()
@@ -33,16 +35,19 @@ def CreateAccount():
                     continue
             user_name = input("Please enter your name: ")
             user_dob = input("Please enter your Date of Birth (YYYY-MM-DD): ")
-            # query = "insert into user_details values(%s, %s, '%s', '%s', '%s', '%s')" % (user_aadhar, user_mobile_no, user_gmail_id, user_passwd, user_name, user_dob)
-            # cu.execute(query)
+            query = "insert into user_details values(%s, %s, '%s', '%s', '%s', '%s', 0)" % (user_aadhar, user_mobile_no, user_gmail_id, user_passwd, user_name, user_dob)
+            cu.execute(query)
             print("Account created!")
             print()
-            while True:
+
+            loop2 = True
+            while loop2:
                 choice_3 = input("Would you like to create another account? (Yes/No): ")
                 if choice_3 == "Yes" or choice_3 == "yes":
                     break
                 elif choice_3 == "No" or choice_3 == "no":
                     loop = False
+                    loop2 = False
                 else:
                     print("Invalid choice. Please enter your choice again.")
                     print()
@@ -51,6 +56,26 @@ def CreateAccount():
             break
         else:
             print("Invalid choice. Please enter your choice again.")
+    co.commit()
+
+# Logging into an Account
+def LoginAccount():
+    cu = co.cursor()
+    cu.execute("use ABC_CBS;")
+    cu.execute("select * from user_details;")
+    data = cu.fetchall()
+    loop = True
+    logged_in = False
+    while loop:
+        count = 0
+        print()
+        temp_g = input("Please enter your G-Mail ID: ")
+        temp_p = input("Please enter your password: ")
+        for i in range(len(data)):
+            if temp_g == data[i][2]:
+                count
+
+
 
 
 # OTP Verification
@@ -83,8 +108,7 @@ while True:
     print('''--------------------------------------------------------------------------------------------------------------
 1. Create an Account
 2. Log into an existing Account
-3. Manage Account
-4. Exit
+3. Exit
 --------------------------------------------------------------------------------------------------------------
     ''')
     choice = int(input("Enter your choice: "))
@@ -92,10 +116,8 @@ while True:
         CreateAccount()
 
     elif choice == 2:
-        break
+        LoginAccount()
     elif choice == 3:
-        break
-    elif choice == 4:
         break
     else:
         print()
