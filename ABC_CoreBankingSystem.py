@@ -27,8 +27,9 @@ def CreateAccount():
                     print("OTP failed to verify. Please try again.")
                     continue
             while True:
-                user_passwd = input("Please enter a strong password: ")
-                user_passwd_r = input("Please enter your password again: ")
+                user_passwd = input("Please enter a Strong Password: ")
+                user_passwd_r = input("Please re-enter your password: ")
+                print()
                 if user_passwd == user_passwd_r:
                     break
                 else:
@@ -131,11 +132,12 @@ def LoginAccount():
                     print("Invalid choice. Please try again.")
                     continue
 
+
+# Managing the Customer's Account
 def ManageAccount(t_g):
     cu = co.cursor()
     cu.execute("use ABC_CBS;")
     loop = True
-    print(t_g)
     while loop:
         print()
         print("1. View Account Details")
@@ -175,7 +177,7 @@ def ManageAccount(t_g):
                             print("Date Of Birth:", data[i][5])
                             print("Balance:", data[i][6])
                             break
-
+            break
 
 
 
@@ -197,6 +199,7 @@ Your OTP for verification is: ''' + str(otp)
     smtp.sendmail('abcbank2022.3@gmail.com', mail, message)
     print()
     print("OTP sent. Please check your mail.")
+    print()
     iotp = int(input("Please enter the OTP sent in the given email: "))
     if iotp == otp:
         return True
