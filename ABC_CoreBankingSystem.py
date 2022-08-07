@@ -5,8 +5,8 @@ co = spc.connect(host='localhost', user='toor', passwd='')
 # Creating a Bank Account
 def CreateAccount():
     # OTP Password = nsiruyegnabfpawh
-    # cu.execute("create database ABC_CBS;")
     cu = co.cursor()
+    # cu.execute("create database ABC_CBS;")
     cu.execute("use ABC_CBS;")
     # cu.execute("create table user_details(Aadhar bigint primary key, Mobile_No bigint, GMail_ID varchar(50), Password varchar(50), Name varchar(50), DateOfBirth date, Balance bigint default 0);")
     loop = True
@@ -75,41 +75,111 @@ def LoginAccount():
         for i in range(len(data)):
             if temp_g == data[i][2]:
                 count = count + 1
-        if count == 1:
-            if temp_g == data[i][2] and temp_p == data[i][3]:
-                while True:
-                    if OTPVerification(temp_g):
-                        print('OTP verified successfully.')
-                        logged_in = True
-                        loop = False
-                        break
-                    else:
-                        print("OTP failed to verify. Please try again.")
-                        continue
+        for i in range(len(data)):
+            if count == 1:
+                if temp_g == data[i][2] and temp_p == data[i][3]:
+                    loop4 = True
+                    while loop4:
+                        if OTPVerification(temp_g):
+                            print('OTP verified successfully.')
+                            print()
+                            print("Successfully logged in! Welcome back,", data[i][4])
+                            logged_in = True
+                            loop = False
+                            loop4 = False
+                        else:
+                            print("OTP failed to verify. Please try again.")
+                            continue
+                    break
+            elif count == 0:
+                print("No Accounts found. Please try again.")
+                break
             else:
-                print("Wrong G-Mail/Password. Please try again.")
-                continue
-        elif count == 0:
-            print("No Accounts found. Please try again.")
-        else:
-            print("Accounts with the same email has been found. Please enter your Aadhar Number to continue.")
-            loop2 = True
-            while loop2:
-                print()
-                temp_a = int(input("Please enter your Aadhar Number: "))
-                for i in range(len(data)):
-                    if temp_g == data[i][2] and temp_p == data[i][3] and temp_a == data[i][0]:
+                print("Accounts with the same email has been found. Please enter your Aadhar Number to continue.")
+                loop2 = True
+                while loop2:
+                    print()
+                    temp_a = int(input("Please enter your Aadhar Number: "))
+                    for i in range(len(data)):
+                        if temp_g == data[i][2] and temp_p == data[i][3] and temp_a == data[i][0]:
+                            print()
+                            print("Successfully logged in! Welcome back,", data[i][4])
+                            logged_in = True
+                            loop2 = False
+                            break
+                    else:
                         print()
-                        print("Successfully logged in! Welcome back,", data[i][4])
-                        logged_in = True
-                        loop = False
+                        print("Invalid Aadhar. Please try again.")
                         loop2 = False
-                        break
+                        continue
+                break
+        else:
+            print("Wrong G-Mail/Password. Please try again.")
+        if logged_in:
+            ManageAccount(temp_g)
+            print()
+            loop3 = True
+            while loop3:
+                choice_2 = input("Do you wish to login to another account? (Yes/No): ")
+                if choice_2 == 'Yes' or choice_2 == 'yes':
+                    loop3 = False
+                    continue
+                elif choice_2 == 'No' or choice_2 == 'no':
+                    loop = False
+                    break
+                else:
+                    print("Invalid choice. Please try again.")
+                    continue
+
+def ManageAccount(t_g):
+    cu = co.cursor()
+    cu.execute("use ABC_CBS;")
+    loop = True
+    while loop:
+        print()
+        print("1. View Account Details")
+        print("2. Deposit Money in Account")
+        print("3. Change User Details")
+        print("4. Exit")
+        print()
+        choice_2 = int(input("Enter your choice: "))
+        if choice_2 == 1:
+            cu.execute("select * from user_details;")
+            data = cu.fetchall()
+            count = 0
+            for i in range(len(data)):
+                if t_g == data[i][2]:
+                    count = count + 1
+            for i in range(len(data)):
+                if t_g == data[i][2] and count == 1:
+                    print()
+                    print("Aadhar Number:", data[i][0])
+                    print("Mobile Number:", data[i][1])
+                    print("G-Mail ID:", data[i][2])
+                    print("Name:", data[i][4])
+                    print("Date Of Birth:", data[i][5])
+                    print("Balance:", data[i][6])
+                    break
                 else:
                     print()
-                    print("Try again.")
-                    loop2 = False
-                    continue
+                    print("More than 2 Accounts found.")
+                    t_a = int(input("Please enter your Aadhar Number: "))
+                    for i in range(len(data)):
+                        if t_g == data[i][2] and t_a == data[i][0]:
+                            print()
+                            print("Aadhar Number:", data[i][0])
+                            print("Mobile Number:", data[i][1])
+                            print("G-Mail ID:", data[i][2])
+                            print("Name:", data[i][4])
+                            print("Date Of Birth:", data[i][5])
+                            print("Balance:", data[i][6])
+                            break
+                break
+
+
+
+
+
 
 # OTP Verification
 def OTPVerification(mail):
