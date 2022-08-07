@@ -8,7 +8,7 @@ def CreateAccount():
     cu = co.cursor()
     # cu.execute("create database ABC_CBS;")
     cu.execute("use ABC_CBS;")
-    # cu.execute("create table user_details(Aadhar bigint primary key, Mobile_No bigint, GMail_ID varchar(50), Password varchar(50), Name varchar(50), DateOfBirth date, Balance bigint default 0);")
+    # cu.execute("create table user_details(Aadhar bigint primary key, Mobile_No bigint, GMail_ID varchar(50), Password varchar(50), Name varchar(50), DateOfBirth date, Balance float default 0.0);")
     loop = True
     while loop:
         print()
