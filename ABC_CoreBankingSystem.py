@@ -135,6 +135,7 @@ def ManageAccount(t_g):
     cu = co.cursor()
     cu.execute("use ABC_CBS;")
     loop = True
+    print(t_g)
     while loop:
         print()
         print("1. View Account Details")
@@ -151,7 +152,7 @@ def ManageAccount(t_g):
                 if t_g == data[i][2]:
                     count = count + 1
             for i in range(len(data)):
-                if t_g == data[i][2] and count == 1:
+                if count == 1 and t_g == data[i][2]:
                     print()
                     print("Aadhar Number:", data[i][0])
                     print("Mobile Number:", data[i][1])
@@ -160,7 +161,7 @@ def ManageAccount(t_g):
                     print("Date Of Birth:", data[i][5])
                     print("Balance:", data[i][6])
                     break
-                else:
+                elif count > 1:
                     print()
                     print("More than 2 Accounts found.")
                     t_a = int(input("Please enter your Aadhar Number: "))
@@ -174,7 +175,6 @@ def ManageAccount(t_g):
                             print("Date Of Birth:", data[i][5])
                             print("Balance:", data[i][6])
                             break
-                break
 
 
 
@@ -209,7 +209,6 @@ print("Welcome to ABC Bank, choose one of the options to get started:")
 print()
 
 while True:
-    print()
     print('''--------------------------------------------------------------------------------------------------------------
 1. Create an Account
 2. Log into an existing Account
