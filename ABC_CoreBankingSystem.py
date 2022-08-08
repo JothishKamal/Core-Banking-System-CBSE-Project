@@ -207,7 +207,7 @@ def ForgotPassword():
                             loop = False
                             break
                     break
-        elif choice_2 ==2:
+        elif choice_2 == 2:
             temp_g = input("Please enter your G-Mail ID: ")
 
         elif choice_2 == 3:
