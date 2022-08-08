@@ -169,7 +169,6 @@ def ForgotPassword():
                     continue
 
             while True:
-                print()
                 new_p = input("Please enter a Strong Password: ")
                 new_pr = input("Please re-enter your Password: ")
                 if new_p == new_pr:
