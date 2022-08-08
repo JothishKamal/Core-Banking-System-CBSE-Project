@@ -25,10 +25,11 @@ def CreateAccount():
                     break
                 else:
                     print("OTP failed to verify. Please try again.")
+                    print()
                     continue
             while True:
                 user_passwd = input("Please enter a Strong Password: ")
-                user_passwd_r = input("Please re-enter your password: ")
+                user_passwd_r = input("Please re-enter your Password: ")
                 print()
                 if user_passwd == user_passwd_r:
                     break
@@ -86,7 +87,6 @@ def LoginAccount():
                             print()
                             print("Successfully logged in! Welcome back,", data[i][4])
                             logged_in = True
-                            loop = False
                             loop4 = False
                         else:
                             print("OTP failed to verify. Please try again.")
@@ -95,7 +95,7 @@ def LoginAccount():
             elif count == 0:
                 print("No Accounts found. Please try again.")
                 break
-            else:
+            elif count > 1 and temp_g == data[i][2] and temp_p == data[i][3]:
                 print("Accounts with the same email has been found. Please enter your Aadhar Number to continue.")
                 loop2 = True
                 while loop2:
@@ -116,6 +116,7 @@ def LoginAccount():
                 break
         else:
             print("Wrong G-Mail/Password. Please try again.")
+            logged_in = False
         if logged_in:
             ManageAccount(temp_g)
             print()
@@ -124,13 +125,90 @@ def LoginAccount():
                 choice_2 = input("Do you wish to login to another account? (Yes/No): ")
                 if choice_2 == 'Yes' or choice_2 == 'yes':
                     loop3 = False
+                    loop = True
                     continue
                 elif choice_2 == 'No' or choice_2 == 'no':
                     loop = False
+                    print()
                     break
                 else:
                     print("Invalid choice. Please try again.")
+                    print()
                     continue
+
+def ForgotPassword():
+    cu = co.cursor()
+    cu.execute("use ABC_CBS;")
+
+    loop = True
+
+    while loop:
+        print()
+        print("1. Change Password via G-Mail")
+        print("2. Change Password via Aadhar Verification")
+        print("3. Exit")
+        print()
+        choice_2 = int(input("Please enter your choice: "))
+        print()
+        if choice_2 == 1:
+            cu.execute("select * from user_details;")
+            data = cu.fetchall()
+
+            temp_g = input("Please enter your G-Mail ID: ")
+            while True:
+                if OTPVerification(temp_g):
+                    print('OTP verified successfully.')
+                    print()
+                    break
+                else:
+                    print("OTP failed to verify. Please try again.")
+                    print()
+                    continue
+
+            while True:
+                print()
+                new_p = input("Please enter a Strong Password: ")
+                new_pr = input("Please re-enter your Password: ")
+                if new_p == new_pr:
+                    break
+                else:
+                    print("Passwords don't match. Please try again.")
+                    continue
+
+            count = 0
+            for i in range(len(data)):
+                if temp_g == data[i][2]:
+                    count = count + 1
+
+            for i in range(len(data)):
+                if count == 1 and temp_g == data[i][2]:
+                    query = "update user_details set Password = '%s' where GMail_ID = '%s';" %(new_p, temp_g)
+                    cu.execute(query)
+                    print()
+                    print("Password changed successfully.")
+                    print()
+                    loop = False
+                    break
+                elif count > 1:
+                    print()
+                    print("More than 2 Accounts with same G-Mail has been found.")
+                    temp_a = int(input("Please enter your Aadhar Number: "))
+                    for i in range(len(data)):
+                        if temp_g == data[i][2] and temp_a == data[i][0]:
+                            query = "update user_details set Password = '%s' where GMail_ID = '%s' and Aadhar = '%s';" % (new_p, temp_g, temp_a)
+                            cu.execute(query)
+                            print()
+                            print("Password changed successfully.")
+                            print()
+                            loop = False
+                            break
+                    break
+
+
+        elif choice_2 == 3:
+            break
+    co.commit()
+
 
 
 # Managing the Customer's Account
@@ -165,7 +243,7 @@ def ManageAccount(t_g):
                     break
                 elif count > 1:
                     print()
-                    print("More than 2 Accounts found.")
+                    print("More than 2 Accounts with same G-Mail has been found.")
                     t_a = int(input("Please enter your Aadhar Number: "))
                     for i in range(len(data)):
                         if t_g == data[i][2] and t_a == data[i][0]:
@@ -177,8 +255,11 @@ def ManageAccount(t_g):
                             print("Date Of Birth:", data[i][5])
                             print("Balance:", data[i][6])
                             break
-            break
+                    break
 
+        elif choice_2 == 4:
+            loop = False
+            break
 
 
 
@@ -215,7 +296,8 @@ while True:
     print('''--------------------------------------------------------------------------------------------------------------
 1. Create an Account
 2. Log into an existing Account
-3. Exit
+3. Forgot Password
+4. Exit
 --------------------------------------------------------------------------------------------------------------
     ''')
     choice = int(input("Enter your choice: "))
@@ -224,6 +306,8 @@ while True:
     elif choice == 2:
         LoginAccount()
     elif choice == 3:
+        ForgotPassword()
+    elif choice ==4:
         break
     else:
         print()
