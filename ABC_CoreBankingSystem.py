@@ -53,6 +53,7 @@ def CreateAccount():
                 elif choice_3 == "No" or choice_3 == "no":
                     loop = False
                     loop2 = False
+                    print()
                 else:
                     print("Invalid choice. Please enter your choice again.")
                     continue
@@ -76,7 +77,6 @@ def LoginAccount():
         print()
         temp_g = input("Please enter your G-Mail ID: ")
         temp_p = input("Please enter your password: ")
-        print()
         for i in range(len(data)):
             if temp_g == data[i][2]:
                 count = count + 1
