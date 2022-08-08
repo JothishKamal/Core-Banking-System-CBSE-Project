@@ -221,10 +221,12 @@ def ManageAccount(t_g):
     loop = True
     while loop:
         print()
+        print("--------------------------------------------------------------------------------------------------------------")
         print("1. View Account Details")
         print("2. Deposit Money in Account")
         print("3. Change User Details")
         print("4. Exit")
+        print("--------------------------------------------------------------------------------------------------------------")
         print()
         choice_2 = int(input("Enter your choice: "))
         if choice_2 == 1:
