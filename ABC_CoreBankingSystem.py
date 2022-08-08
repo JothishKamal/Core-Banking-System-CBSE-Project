@@ -39,7 +39,7 @@ def CreateAccount():
                     continue
             user_name = input("Please enter your Name: ")
             user_dob = input("Please enter your Date of Birth (YYYY-MM-DD): ")
-            query = "insert into user_details values(%s, %s, '%s', '%s', '%s', '%s', 0)" % (user_aadhar, user_mobile_no, user_gmail_id, user_passwd, user_name, user_dob)
+            query = "insert into user_details values(%s, %s, '%s', '%s', '%s', '%s', 0.0)" % (user_aadhar, user_mobile_no, user_gmail_id, user_passwd, user_name, user_dob)
             cu.execute(query)
             print("Account created!")
 
