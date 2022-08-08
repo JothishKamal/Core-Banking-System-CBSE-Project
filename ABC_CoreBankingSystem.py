@@ -39,7 +39,8 @@ def CreateAccount():
                     continue
             user_name = input("Please enter your Name: ")
             user_dob = input("Please enter your Date of Birth (YYYY-MM-DD): ")
-            query = "insert into user_details values(%s, %s, '%s', '%s', '%s', '%s', 0.0)" % (user_aadhar, user_mobile_no, user_gmail_id, user_passwd, user_name, user_dob)
+            query = "insert into user_details values(%s, %s, '%s', '%s', '%s', '%s', 0.0)" % (
+            user_aadhar, user_mobile_no, user_gmail_id, user_passwd, user_name, user_dob)
             cu.execute(query)
             print("Account created!")
 
@@ -197,8 +198,7 @@ def ForgotPassword():
                     temp_a = int(input("Please enter your Aadhar Number: "))
                     for i in range(len(data)):
                         if temp_g == data[i][2] and temp_a == data[i][0]:
-                            query = "update user_details set Password = '%s' where GMail_ID = '%s' and Aadhar = '%s';" % (
-                                new_p, temp_g, temp_a)
+                            query = "update user_details set Password = '%s' where GMail_ID = '%s' and Aadhar = '%s';" % (new_p, temp_g, temp_a)
                             cu.execute(query)
                             print()
                             print("Password changed successfully.")
