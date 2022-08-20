@@ -67,11 +67,12 @@ def CreateAccount():
 def LoginAccount():
     cu = co.cursor()
     cu.execute("use ABC_CBS;")
-    cu.execute("select * from user_details;")
-    data = cu.fetchall()
     loop = True
+    global logged_in
     logged_in = False
     while loop:
+        cu.execute("select * from user_details;")
+        data = cu.fetchall()
         count = 0
         print()
         temp_g = input("Please enter your G-Mail ID: ")
@@ -147,9 +148,9 @@ def LoginAccount():
                     print("Invalid choice. Please try again.")
                     print()
                     continue
+    co.commit()
 
-
-def ChangeGMail():
+def ChangeGMail(t_go):
     cu = co.cursor()
     cu.execute("use ABC_CBS;")
     cu.execute("select * from user_details")
@@ -163,16 +164,31 @@ def ChangeGMail():
         print()
         t_a = int(input("Please enter your Aadhar Number: "))
         t_g = input("Please enter your new G-Mail ID: ")
+        otp_v = False
+
+        while True:
+            if OTPVerification(t_g):
+                print('OTP verified successfully.')
+                otp_v = True
+                print()
+                break
+            else:
+                print("OTP failed to verify. Please try again.")
+                print()
+                continue
+
         while i < len(data):
-            if t_a == data[i][0]:
+            if t_a == data[i][0] and t_go == data[i][2] and otp_v:
                 query = "update user_details set GMail_ID = '%s' where Aadhar = %s" % (t_g, t_a)
+                cu.execute(query)
                 loop = False
                 new_mail = True
                 break
+            i = i + 1
         else:
             loop2 = True
             while loop2:
-                choice_2 = input("GMail not updated. Would you like to try again? (Yes/No): ")
+                choice_2 = input("G-Mail not updated. Would you like to try again? (Yes/No): ")
                 if choice_2 == "Yes" or choice_2 == "yes":
                     break
                 elif choice_2 == "No" or choice_2 == "no":
@@ -180,6 +196,9 @@ def ChangeGMail():
                     break
                 else:
                     print("Invalid choice. Please try again.")
+
+    if new_mail == True:
+        print("G-Mail changed successfully. Please login again.")
 
     co.commit()
 
@@ -242,8 +261,7 @@ def ChangePassword():
                     temp_a = int(input("Please enter your Aadhar Number: "))
                     for i in range(len(data)):
                         if temp_g == data[i][2] and temp_a == data[i][0]:
-                            query = "update user_details set Password = '%s' where GMail_ID = '%s' and Aadhar = '%s';" % (
-                            new_p, temp_g, temp_a)
+                            query = "update user_details set Password = '%s' where GMail_ID = '%s' and Aadhar = '%s';" % (new_p, temp_g, temp_a)
                             cu.execute(query)
                             print()
                             print("Password changed successfully.")
@@ -345,13 +363,16 @@ def ManageAccount(t_g, t_a):
 
             choice_3 = int(input("Enter your choice: "))
             if choice_3 == 1:
-                ChangeGMail()
+                ChangeGMail(t_g)
+                logged_in = False
                 loop = False
             elif choice_3 == 2:
                 ChangeMobile()
+                logged_in = False
                 loop = False
             elif choice_3 == 3:
                 ChangePassword()
+                logged_in = False
                 loop = False
             elif choice_3 == 4:
                 continue

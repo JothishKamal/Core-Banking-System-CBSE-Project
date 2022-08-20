@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f40f3933-e649-4557-8c1c-861b6febf9c5" name="Changes" comment="Updated stuff + Working Deposit System.">
+    <list default="true" id="f40f3933-e649-4557-8c1c-861b6febf9c5" name="Changes" comment="Updated stuff.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ABC_CoreBankingSystem.py" beforeDir="false" afterPath="$PROJECT_DIR$/ABC_CoreBankingSystem.py" afterDir="false" />
     </list>
@@ -189,7 +189,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661015977572</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Updated stuff.">
+      <created>1661016133670</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1661016133670</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -209,8 +216,8 @@
     <MESSAGE value="Added ForgotPassword Function." />
     <MESSAGE value="Polished Code." />
     <MESSAGE value="Polished Code + Bug Fixes" />
-    <MESSAGE value="Updated stuff." />
     <MESSAGE value="Updated stuff + Working Deposit System." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated stuff + Working Deposit System." />
+    <MESSAGE value="Updated stuff." />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated stuff." />
   </component>
 </project>
