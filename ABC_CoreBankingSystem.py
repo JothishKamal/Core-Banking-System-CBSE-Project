@@ -296,11 +296,26 @@ def ManageAccount(t_g, t_a):
                             print(money, "deposited.")
                             break
                     break
+        elif choice_2 == 3:
+            print()
+            print("1. Change G-Mail ID")
+            print("2. Change Mobile Number")
+            print("3. Change Password")
+            print("4. Go back to Main Menu")
+            print()
 
+            choice_3 = int(input("Enter your choice: "))
+            if choice_3 == 1:
+                ChangeGMail()
+            elif choice_3 == 2:
+                ChangeMobile()
+            elif choice_3 == 3:
+                ForgotPassword()
+            elif choice_3 == 4:
+                continue
 
         elif choice_2 == 4:
             loop = False
-            break
 
     co.commit()
 
