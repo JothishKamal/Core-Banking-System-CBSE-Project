@@ -164,19 +164,8 @@ def ChangeMobile(t_go):
         print()
         t_a = int(input("Please enter your Aadhar Number: "))
         t_m = input("Please enter your new Mobile Number: ")
-        otp_v = False
-        while True:
-            if OTPVerification(t_m):
-                print('OTP verified successfully.')
-                otp_v = True
-                print()
-                break
-            else:
-                print("OTP failed to verify. Please try again.")
-                print()
-                continue
         while i < len(data):
-            if t_a == data[i][0] and t_go == data[i][2] and otp_v:
+            if t_a == data[i][0] and t_go == data[i][2]:
                 query = "update user_details set Mobile_No = '%s' where Aadhar = %s" % (t_m, t_a)
                 cu.execute(query)
                 loop = False
@@ -195,6 +184,7 @@ def ChangeMobile(t_go):
                 else:
                     print("Invalid choice. Please try again.")
     if new_mobile:
+        print()
         print("Mobile Number changed successfully.")
 
     co.commit()
@@ -244,6 +234,7 @@ def ChangeGMail(t_go):
                 else:
                     print("Invalid choice. Please try again.")
     if new_mail:
+        print()
         print("G-Mail changed successfully.")
 
     co.commit()
