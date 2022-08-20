@@ -206,6 +206,8 @@ def ChangePassword():
     loop = True
 
     while loop:
+        cu.execute("select * from user_details;")
+        data = cu.fetchall()
         print()
         print("1. Change Password via G-Mail")
         print("2. Change Password via Aadhar Verification")
@@ -214,14 +216,13 @@ def ChangePassword():
         choice_2 = int(input("Please enter your choice: "))
         print()
         if choice_2 == 1:
-            cu.execute("select * from user_details;")
-            data = cu.fetchall()
-
             temp_g = input("Please enter your G-Mail ID: ")
+            otp_v = False
             while True:
                 if OTPVerification(temp_g):
                     print('OTP verified successfully.')
                     print()
+                    otp_v = True
                     break
                 else:
                     print("OTP failed to verify. Please try again.")
@@ -243,7 +244,7 @@ def ChangePassword():
                     count = count + 1
 
             for i in range(len(data)):
-                if count == 1 and temp_g == data[i][2]:
+                if count == 1 and temp_g == data[i][2] and otp_v == True:
                     query = "update user_details set Password = '%s' where GMail_ID = '%s';" % (new_p, temp_g)
                     cu.execute(query)
                     print()
@@ -267,9 +268,31 @@ def ChangePassword():
                     break
         elif choice_2 == 2:
             temp_g = input("Please enter your G-Mail ID: ")
+            temp_a = int(input("Please enter your Aadhar Number: "))
 
+            while True:
+                new_p = input("Please enter a Strong Password: ")
+                new_pr = input("Please re-enter your Password: ")
+                if new_p == new_pr:
+                    break
+                else:
+                    print("Passwords don't match. Please try again.")
+                    continue
+
+            for i in range(len(data)):
+                if temp_g == data[i][2] and temp_a == data[i][0]:
+                    query = "update user_details set Password = '%s' where GMail_ID = '%s' and Aadhar = '%s';" % (new_p, temp_g, temp_a)
+                    cu.execute(query)
+                    print()
+                    print("Password changed successfully.")
+                    print()
+                    loop = False
+                    break
         elif choice_2 == 3:
             break
+        else:
+            print()
+            print("Invalid choice. Please try again.")
     co.commit()
 
 
