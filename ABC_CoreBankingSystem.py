@@ -154,19 +154,16 @@ def LoginAccount():
 def ChangeGMail(t_go):
     cu = co.cursor()
     cu.execute("use ABC_CBS;")
-    cu.execute("select * from user_details")
-    data = cu.fetchall()
     i = 0
-
     loop = True
     new_mail = None
-
     while loop:
+        cu.execute("select * from user_details")
+        data = cu.fetchall()
         print()
         t_a = int(input("Please enter your Aadhar Number: "))
         t_g = input("Please enter your new G-Mail ID: ")
         otp_v = False
-
         while True:
             if OTPVerification(t_g):
                 print('OTP verified successfully.')
@@ -177,7 +174,6 @@ def ChangeGMail(t_go):
                 print("OTP failed to verify. Please try again.")
                 print()
                 continue
-
         while i < len(data):
             if t_a == data[i][0] and t_go == data[i][2] and otp_v:
                 query = "update user_details set GMail_ID = '%s' where Aadhar = %s" % (t_g, t_a)
@@ -197,7 +193,6 @@ def ChangeGMail(t_go):
                     break
                 else:
                     print("Invalid choice. Please try again.")
-
     if new_mail:
         print("G-Mail changed successfully. Please login again.")
 
@@ -379,6 +374,9 @@ def ManageAccount(t_g, t_a):
 
         elif choice_2 == 4:
             loop = False
+        else:
+            print()
+            print("Invalid choice. Please try again. ")
 
     co.commit()
 
@@ -447,3 +445,4 @@ while True:
     else:
         print()
         print("Invalid choice. Please select again:")
+        print()
