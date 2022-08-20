@@ -98,6 +98,7 @@ def LoginAccount():
                 print("No Accounts found. Please try again.")
                 break
             elif count > 1 and temp_g == data[i][2] and temp_p == data[i][3]:
+                print()
                 print("Accounts with the same email has been found. Please enter your Aadhar Number to continue.")
                 loop2 = True
                 while loop2:
@@ -120,7 +121,7 @@ def LoginAccount():
             print("Wrong G-Mail/Password. Please try again.")
             logged_in = False
         if logged_in:
-            ManageAccount(temp_g)
+            ManageAccount(temp_g, temp_a)
             print()
             loop3 = True
             while loop3:
@@ -128,6 +129,7 @@ def LoginAccount():
                 if choice_2 == 'Yes' or choice_2 == 'yes':
                     loop3 = False
                     loop = True
+                    logged_in = False
                     continue
                 elif choice_2 == 'No' or choice_2 == 'no':
                     loop = False
@@ -214,7 +216,7 @@ def ForgotPassword():
 
 
 # Managing the Customer's Account
-def ManageAccount(t_g):
+def ManageAccount(t_g, t_a):
     cu = co.cursor()
     cu.execute("use ABC_CBS;")
     loop = True
@@ -246,9 +248,6 @@ def ManageAccount(t_g):
                     print("Balance:", data[i][6])
                     break
                 elif count > 1:
-                    print()
-                    print("More than 2 Accounts with same G-Mail has been found.")
-                    t_a = int(input("Please enter your Aadhar Number: "))
                     for i in range(len(data)):
                         if t_g == data[i][2] and t_a == data[i][0]:
                             print()
@@ -268,18 +267,34 @@ def ManageAccount(t_g):
 
 # OTP Verification
 def OTPVerification(mail):
+    from email.mime.multipart import MIMEMultipart
+    from email.mime.text import MIMEText
     import random
     import smtplib as smtp
+
     smtp = smtp.SMTP('smtp.gmail.com', 587)
     smtp.starttls()
     smtp.login('abcbank2022.3@gmail.com', 'nsiruyegnabfpawh')
     otp = random.randrange(100000, 999999)
-    message = '''
-Hello Customer,
-    Greetings from ABC Bank. Hope you're having a good day.
 
-Your OTP for verification is: ''' + str(otp)
-    smtp.sendmail('abcbank2022.3@gmail.com', mail, message)
+    body = '''
+Hello Customer, <br>
+<br>
+               Greetings from ABC Bank. Your One Time Password(OTP) for Verification is given below.
+<br>               
+<br>
+OTP = %s
+    ''' % otp
+
+    message = MIMEMultipart()
+    message['To'] = mail
+    message['From'] = "abcbank2022.3@gmail.com"
+    message['Subject'] = '''OTP Verification'''
+    html_body = MIMEText(body, 'html')
+    message.attach(html_body)
+
+    smtp.sendmail('abcbank2022.3@gmail.com', mail, message.as_string())
+
     print()
     print("OTP sent. Please check your mail.")
     print()
