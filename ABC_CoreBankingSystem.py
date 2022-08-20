@@ -150,6 +150,7 @@ def LoginAccount():
                     continue
     co.commit()
 
+
 def ChangeGMail(t_go):
     cu = co.cursor()
     cu.execute("use ABC_CBS;")
@@ -197,7 +198,7 @@ def ChangeGMail(t_go):
                 else:
                     print("Invalid choice. Please try again.")
 
-    if new_mail == True:
+    if new_mail:
         print("G-Mail changed successfully. Please login again.")
 
     co.commit()
@@ -338,8 +339,7 @@ def ManageAccount(t_g, t_a):
                     count = count + 1
             for i in range(len(data)):
                 if count == 1 and t_g == data[i][2]:
-                    query = "update user_details set Balance = Balance + %s where GMail_ID = '%s' and Aadhar = %s" % (
-                    money, t_g, t_a)
+                    query = "update user_details set Balance = Balance + %s where GMail_ID = '%s' and Aadhar = %s" % (money, t_g, t_a)
                     cu.execute(query)
                     print()
                     print(money, "deposited.")
