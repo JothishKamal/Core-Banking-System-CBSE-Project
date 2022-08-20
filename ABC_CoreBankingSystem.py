@@ -235,7 +235,9 @@ def ChangePassword():
                 if new_p == new_pr:
                     break
                 else:
+                    print()
                     print("Passwords don't match. Please try again.")
+                    print()
                     continue
 
             count = 0
@@ -276,7 +278,9 @@ def ChangePassword():
                 if new_p == new_pr:
                     break
                 else:
+                    print()
                     print("Passwords don't match. Please try again.")
+                    print()
                     continue
 
             for i in range(len(data)):
