@@ -228,7 +228,7 @@ def ManageAccount(t_g, t_a):
         print("3. Change User Details")
         print("4. Exit")
         print("--------------------------------------------------------------------------------------------------------------")
-        print()
+        print(
         choice_2 = int(input("Enter your choice: "))
         if choice_2 == 1:
             cu.execute("select * from user_details;")
