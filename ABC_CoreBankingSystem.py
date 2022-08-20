@@ -95,6 +95,7 @@ def LoginAccount():
                             continue
                     break
             elif count == 0:
+                print()
                 print("No Accounts found. Please try again.")
                 break
             elif count > 1 and temp_g == data[i][2] and temp_p == data[i][3]:
@@ -118,8 +119,15 @@ def LoginAccount():
                         continue
                 break
         else:
+            print()
             print("Wrong G-Mail/Password. Please try again.")
             logged_in = False
+
+        try:
+            if temp_a:
+                pass
+        except:
+            temp_a = None
         if logged_in:
             ManageAccount(temp_g, temp_a)
             print()
@@ -259,11 +267,37 @@ def ManageAccount(t_g, t_a):
                             print("Balance:", data[i][6])
                             break
                     break
+        elif choice_2 == 2:
+            print()
+            money = float(input("Please the enter amount you want to deposit: "))
+            if t_a:
+                pass
+            else:
+                t_a = int(input("Please enter your Aadhar Number: "))
+            cu.execute("select * from user_details")
+            data = cu.fetchall()
+            count = 0
+            for i in range(len(data)):
+                if t_g == data[i][2]:
+                    count = count + 1
+            for i in range(len(data)):
+                if count == 1 and t_g == data[i][2]:
+                    query = "update user_details set Balance = Balance + %s where GMail_ID = '%s' and Aadhar = %s" %(money, t_g, t_a)
+                    cu.execute(query)
+                    break
+                elif count > 1:
+                    for i in range(len(data)):
+                        if t_g == data[i][2] and t_a == data[i][0]:
+                            query = "update user_details set Balance = Balance + %s where GMail_ID = '%s' and Aadhar = %s" % (money, t_g, t_a)
+                            cu.execute(query)
+                            break
+                    break
 
         elif choice_2 == 4:
             loop = False
             break
 
+    co.commit()
 
 # OTP Verification
 def OTPVerification(mail):
