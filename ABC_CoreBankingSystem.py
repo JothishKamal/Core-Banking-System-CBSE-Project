@@ -151,6 +151,56 @@ def LoginAccount():
     co.commit()
 
 
+# Changing the Customer's G-Mail ID
+def ChangeMobile(t_go):
+    cu = co.cursor()
+    cu.execute("use ABC_CBS;")
+    i = 0
+    loop = True
+    new_mobile = None
+    while loop:
+        cu.execute("select * from user_details")
+        data = cu.fetchall()
+        print()
+        t_a = int(input("Please enter your Aadhar Number: "))
+        t_m = input("Please enter your new Mobile Number: ")
+        otp_v = False
+        while True:
+            if OTPVerification(t_m):
+                print('OTP verified successfully.')
+                otp_v = True
+                print()
+                break
+            else:
+                print("OTP failed to verify. Please try again.")
+                print()
+                continue
+        while i < len(data):
+            if t_a == data[i][0] and t_go == data[i][2] and otp_v:
+                query = "update user_details set Mobile_No = '%s' where Aadhar = %s" % (t_m, t_a)
+                cu.execute(query)
+                loop = False
+                new_mobile = True
+                break
+            i = i + 1
+        else:
+            loop2 = True
+            while loop2:
+                choice_2 = input("Mobile Number not updated. Would you like to try again? (Yes/No): ")
+                if choice_2 == "Yes" or choice_2 == "yes":
+                    break
+                elif choice_2 == "No" or choice_2 == "no":
+                    loop = False
+                    break
+                else:
+                    print("Invalid choice. Please try again.")
+    if new_mobile:
+        print("Mobile Number changed successfully.")
+
+    co.commit()
+
+
+# Changing the Customer's G-Mail ID
 def ChangeGMail(t_go):
     cu = co.cursor()
     cu.execute("use ABC_CBS;")
@@ -194,11 +244,12 @@ def ChangeGMail(t_go):
                 else:
                     print("Invalid choice. Please try again.")
     if new_mail:
-        print("G-Mail changed successfully. Please login again.")
+        print("G-Mail changed successfully.")
 
     co.commit()
 
 
+# Changing the Customer's Password
 def ChangePassword():
     cu = co.cursor()
     cu.execute("use ABC_CBS;")
@@ -246,7 +297,7 @@ def ChangePassword():
                     count = count + 1
 
             for i in range(len(data)):
-                if count == 1 and temp_g == data[i][2] and otp_v == True:
+                if count == 1 and otp_v:
                     query = "update user_details set Password = '%s' where GMail_ID = '%s';" % (new_p, temp_g)
                     cu.execute(query)
                     print()
@@ -389,7 +440,7 @@ def ManageAccount(t_g, t_a):
                 logged_in = False
                 loop = False
             elif choice_3 == 2:
-                ChangeMobile()
+                ChangeMobile(t_g)
                 logged_in = False
                 loop = False
             elif choice_3 == 3:
@@ -426,7 +477,7 @@ Hello Customer, <br>
                Greetings from ABC Bank. Your One Time Password(OTP) for Verification is given below.
 <br>               
 <br>
-OTP = %s
+OTP is %s
     ''' % otp
 
     message = MIMEMultipart()
