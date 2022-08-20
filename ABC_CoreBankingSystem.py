@@ -149,7 +149,42 @@ def LoginAccount():
                     continue
 
 
-def ForgotPassword():
+def ChangeGMail():
+    cu = co.cursor()
+    cu.execute("use ABC_CBS;")
+    cu.execute("select * from user_details")
+    data = cu.fetchall()
+    i = 0
+
+    loop = True
+    new_mail = None
+
+    while loop:
+        print()
+        t_a = int(input("Please enter your Aadhar Number: "))
+        t_g = input("Please enter your new G-Mail ID: ")
+        while i < len(data):
+            if t_a == data[i][0]:
+                query = "update user_details set GMail_ID = '%s' where Aadhar = %s" % (t_g, t_a)
+                loop = False
+                new_mail = True
+                break
+        else:
+            loop2 = True
+            while loop2:
+                choice_2 = input("GMail not updated. Would you like to try again? (Yes/No): ")
+                if choice_2 == "Yes" or choice_2 == "yes":
+                    break
+                elif choice_2 == "No" or choice_2 == "no":
+                    loop = False
+                    break
+                else:
+                    print("Invalid choice. Please try again.")
+
+    co.commit()
+
+
+def ChangePassword():
     cu = co.cursor()
     cu.execute("use ABC_CBS;")
 
@@ -207,7 +242,8 @@ def ForgotPassword():
                     temp_a = int(input("Please enter your Aadhar Number: "))
                     for i in range(len(data)):
                         if temp_g == data[i][2] and temp_a == data[i][0]:
-                            query = "update user_details set Password = '%s' where GMail_ID = '%s' and Aadhar = '%s';" %(new_p, temp_g, temp_a)
+                            query = "update user_details set Password = '%s' where GMail_ID = '%s' and Aadhar = '%s';" % (
+                            new_p, temp_g, temp_a)
                             cu.execute(query)
                             print()
                             print("Password changed successfully.")
@@ -230,12 +266,14 @@ def ManageAccount(t_g, t_a):
     loop = True
     while loop:
         print()
-        print("--------------------------------------------------------------------------------------------------------------")
+        print(
+            "--------------------------------------------------------------------------------------------------------------")
         print("1. View Account Details")
         print("2. Deposit Money in Account")
         print("3. Change User Details")
         print("4. Exit")
-        print("--------------------------------------------------------------------------------------------------------------")
+        print(
+            "--------------------------------------------------------------------------------------------------------------")
         print()
         choice_2 = int(input("Enter your choice: "))
         if choice_2 == 1:
@@ -282,7 +320,8 @@ def ManageAccount(t_g, t_a):
                     count = count + 1
             for i in range(len(data)):
                 if count == 1 and t_g == data[i][2]:
-                    query = "update user_details set Balance = Balance + %s where GMail_ID = '%s' and Aadhar = %s" %(money, t_g, t_a)
+                    query = "update user_details set Balance = Balance + %s where GMail_ID = '%s' and Aadhar = %s" % (
+                    money, t_g, t_a)
                     cu.execute(query)
                     print()
                     print(money, "deposited.")
@@ -307,10 +346,13 @@ def ManageAccount(t_g, t_a):
             choice_3 = int(input("Enter your choice: "))
             if choice_3 == 1:
                 ChangeGMail()
+                loop = False
             elif choice_3 == 2:
                 ChangeMobile()
+                loop = False
             elif choice_3 == 3:
-                ForgotPassword()
+                ChangePassword()
+                loop = False
             elif choice_3 == 4:
                 continue
 
@@ -318,6 +360,7 @@ def ManageAccount(t_g, t_a):
             loop = False
 
     co.commit()
+
 
 # OTP Verification
 def OTPVerification(mail):
@@ -377,7 +420,7 @@ while True:
     elif choice == 2:
         LoginAccount()
     elif choice == 3:
-        ForgotPassword()
+        ChangePassword()
     elif choice == 4:
         break
     else:
