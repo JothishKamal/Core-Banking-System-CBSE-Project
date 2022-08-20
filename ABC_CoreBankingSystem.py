@@ -284,12 +284,16 @@ def ManageAccount(t_g, t_a):
                 if count == 1 and t_g == data[i][2]:
                     query = "update user_details set Balance = Balance + %s where GMail_ID = '%s' and Aadhar = %s" %(money, t_g, t_a)
                     cu.execute(query)
+                    print()
+                    print(money, "deposited.")
                     break
                 elif count > 1:
                     for i in range(len(data)):
                         if t_g == data[i][2] and t_a == data[i][0]:
                             query = "update user_details set Balance = Balance + %s where GMail_ID = '%s' and Aadhar = %s" % (money, t_g, t_a)
                             cu.execute(query)
+                            print()
+                            print(money, "deposited.")
                             break
                     break
 
