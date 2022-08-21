@@ -19,15 +19,21 @@ def CreateAccount():
             user_aadhar = int(input("Please enter your Aadhar Number (Must be 12-Digits): "))
             user_mobile_no = int(input("Please enter your Mobile Number (Must be 10-Digits): "))
             user_gmail_id = input("Please enter your G-Mail ID: ")
-            while True:
-                if OTPVerification(user_gmail_id):
-                    print('OTP verified successfully.')
-                    print()
-                    break
-                else:
-                    print("OTP failed to verify. Please try again.")
-                    print()
-                    continue
+            try:
+                while True:
+                    if OTPVerification(user_gmail_id):
+                        print('OTP verified successfully.')
+                        print()
+                        break
+                    else:
+                        print("OTP failed to verify. Please try again.")
+                        print()
+                        continue
+            except:
+                print()
+                print("Invalid G-Mail ID. Please try again.")
+                continue
+
             while True:
                 user_passwd = input("Please enter a Strong Password: ")
                 user_passwd_r = input("Please re-enter your Password: ")
@@ -36,11 +42,13 @@ def CreateAccount():
                     break
                 else:
                     print("Passwords don't match. Please try again.")
+                    print()
                     continue
             user_name = input("Please enter your Name: ")
             user_dob = input("Please enter your Date of Birth (YYYY-MM-DD): ")
             query = "insert into user_details values(%s, %s, '%s', '%s', '%s', '%s', 0.0)" % (user_aadhar, user_mobile_no, user_gmail_id, user_passwd, user_name, user_dob)
             cu.execute(query)
+            print()
             print("Account created!")
 
             loop2 = True
@@ -54,13 +62,14 @@ def CreateAccount():
                     loop2 = False
                     print()
                 else:
+                    print()
                     print("Invalid choice. Please enter your choice again.")
                     continue
         elif choice_2 == "No" or choice_2 == "no":
             break
         else:
             print("Invalid choice. Please enter your choice again.")
-    co.commit()
+        co.commit()
 
 
 # Logging into an Account
@@ -148,7 +157,7 @@ def LoginAccount():
                     print("Invalid choice. Please try again.")
                     print()
                     continue
-    co.commit()
+        co.commit()
 
 
 # Changing the Customer's G-Mail ID
@@ -403,7 +412,7 @@ def ManageAccount(t_g, t_a):
                     count = count + 1
             for i in range(len(data)):
                 if count == 1 and t_g == data[i][2]:
-                    query = "update user_details set Balance = Balance + %s where GMail_ID = '%s' and Aadhar = %s" % (money, t_g, t_a)
+                    query = "update user_details set Balance = Balance + %s where GMail_ID = '%s' and Aadhar = float(%s)" % (money, t_g, t_a)
                     cu.execute(query)
                     print()
                     print(money, "deposited.")
@@ -417,6 +426,7 @@ def ManageAccount(t_g, t_a):
                             print(money, "deposited.")
                             break
                     break
+            co.commit()
         elif choice_2 == 3:
             print()
             print("1. Change G-Mail ID")

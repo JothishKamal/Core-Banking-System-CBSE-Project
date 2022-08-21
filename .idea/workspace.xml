@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f40f3933-e649-4557-8c1c-861b6febf9c5" name="Changes" comment="Updated stuff.">
+    <list default="true" id="f40f3933-e649-4557-8c1c-861b6febf9c5" name="Changes" comment="All done. Polishing the code is left to be done. Also, we can add new features if we want.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ABC_CoreBankingSystem.py" beforeDir="false" afterPath="$PROJECT_DIR$/ABC_CoreBankingSystem.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -18,6 +19,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectId" id="2D3v77KDUcXntGqpCVBYEWwrYK7" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -29,6 +33,7 @@
     &quot;Project.color&quot;: &quot;481623&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;discord-application&quot;
   }
 }</component>
@@ -237,7 +242,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661020048211</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="All done. Polishing the code is left to be done. Also, we can add new features if we want.">
+      <created>1661020445041</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1661020445041</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -259,6 +271,7 @@
     <MESSAGE value="Polished Code + Bug Fixes" />
     <MESSAGE value="Updated stuff + Working Deposit System." />
     <MESSAGE value="Updated stuff." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated stuff." />
+    <MESSAGE value="All done. Polishing the code is left to be done. Also, we can add new features if we want." />
+    <option name="LAST_COMMIT_MESSAGE" value="All done. Polishing the code is left to be done. Also, we can add new features if we want." />
   </component>
 </project>
