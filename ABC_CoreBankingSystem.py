@@ -243,7 +243,6 @@ def ChangeGMail(t_go):
                 else:
                     print("Invalid choice. Please try again.")
     if new_mail:
-        print()
         print("G-Mail changed successfully.")
 
     co.commit()
@@ -429,10 +428,12 @@ def ManageAccount(t_g, t_a):
             co.commit()
         elif choice_2 == 3:
             print()
+            print("--------------------------------------------------------------------------------------------------------------")
             print("1. Change G-Mail ID")
             print("2. Change Mobile Number")
             print("3. Change Password")
             print("4. Go back to Main Menu")
+            print("--------------------------------------------------------------------------------------------------------------")
             print()
 
             choice_3 = int(input("Enter your choice: "))

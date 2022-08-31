@@ -249,7 +249,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661020445041</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="All done. Polishing the code is left to be done. Also, we can add new features if we want.">
+      <created>1661062620778</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1661062620778</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
