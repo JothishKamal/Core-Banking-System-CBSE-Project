@@ -93,6 +93,7 @@ def LoginAccount():
             if count == 1:
                 if temp_g == data[i][2] and temp_p == data[i][3]:
                     loop4 = True
+
                     while loop4:
                         if OTPVerification(temp_g):
                             print('OTP verified successfully.')
@@ -269,12 +270,13 @@ def ChangePassword():
             temp_g = input("Please enter your G-Mail ID: ")
             otp_v = False
             while True:
-                if OTPVerification(temp_g):
-                    print('OTP verified successfully.')
-                    print()
-                    otp_v = True
-                    break
-                else:
+                try:
+                    if OTPVerification(temp_g):
+                        print('OTP verified successfully.')
+                        print()
+                        otp_v = True
+                        break
+                except:
                     print("OTP failed to verify. Please try again.")
                     print()
                     continue
@@ -339,7 +341,6 @@ def ChangePassword():
                     cu.execute(query)
                     print()
                     print("Password changed successfully.")
-                    print()
                     loop = False
                     break
         elif choice_2 == 3:
