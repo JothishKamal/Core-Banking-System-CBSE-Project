@@ -212,11 +212,9 @@ def ChangeGMail(t_go):
         print()
         t_a = int(input("Please enter your Aadhar Number: "))
         t_g = input("Please enter your new G-Mail ID: ")
-        otp_v = False
         while True:
             if OTPVerification(t_g):
                 print('OTP verified successfully.')
-                otp_v = True
                 print()
                 break
             else:
@@ -224,7 +222,7 @@ def ChangeGMail(t_go):
                 print()
                 continue
         while i < len(data):
-            if t_a == data[i][0] and t_go == data[i][2] and otp_v:
+            if t_a == data[i][0] and t_go == data[i][2]:
                 query = "update user_details set GMail_ID = '%s' where Aadhar = %s" % (t_g, t_a)
                 cu.execute(query)
                 loop = False

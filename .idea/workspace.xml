@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f40f3933-e649-4557-8c1c-861b6febf9c5" name="Changes" comment="All done. Polishing the code is left to be done. Also, we can add new features if we want.">
+    <list default="true" id="f40f3933-e649-4557-8c1c-861b6febf9c5" name="Changes" comment="All done.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ABC_CoreBankingSystem.py" beforeDir="false" afterPath="$PROJECT_DIR$/ABC_CoreBankingSystem.py" afterDir="false" />
     </list>
@@ -273,7 +273,28 @@
       <option name="project" value="LOCAL" />
       <updated>1669471968589</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="All done. Polishing the code is left to be done. Also, we can add new features if we want.">
+      <created>1669569181731</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1669569181731</updated>
+    </task>
+    <task id="LOCAL-00034" summary="All done.">
+      <created>1669569193677</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1669569193677</updated>
+    </task>
+    <task id="LOCAL-00035" summary="All done.">
+      <created>1669569200988</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1669569200988</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -296,6 +317,7 @@
     <MESSAGE value="Updated stuff + Working Deposit System." />
     <MESSAGE value="Updated stuff." />
     <MESSAGE value="All done. Polishing the code is left to be done. Also, we can add new features if we want." />
-    <option name="LAST_COMMIT_MESSAGE" value="All done. Polishing the code is left to be done. Also, we can add new features if we want." />
+    <MESSAGE value="All done." />
+    <option name="LAST_COMMIT_MESSAGE" value="All done." />
   </component>
 </project>
