@@ -357,6 +357,7 @@ def ChangePassword():
     co.commit()
 
 
+
 # Managing the Customer's Account
 def ManageAccount(t_g, t_a):
     cu = co.cursor()
