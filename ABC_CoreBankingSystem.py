@@ -27,7 +27,6 @@ def CreateAccount():
                         break
                     else:
                         print("OTP failed to verify. Please try again.")
-                        print()
                         continue
             except:
                 print()
@@ -319,6 +318,9 @@ def ChangePassword():
                             print()
                             loop = False
                             break
+                    else:
+                        print('Invalid G-Mail ID/Aadhar. Please try again.')
+                        print()
                     break
         elif choice_2 == 2:
             temp_g = input("Please enter your G-Mail ID: ")
@@ -341,8 +343,12 @@ def ChangePassword():
                     cu.execute(query)
                     print()
                     print("Password changed successfully.")
+                    print()
                     loop = False
                     break
+            else:
+                print()
+                print('Invalid G-Mail ID/Aadhar. Please try again.')
         elif choice_2 == 3:
             break
         else:
@@ -412,7 +418,7 @@ def ManageAccount(t_g, t_a):
                     count = count + 1
             for i in range(len(data)):
                 if count == 1 and t_g == data[i][2]:
-                    query = "update user_details set Balance = Balance + %s where GMail_ID = '%s' and Aadhar = float(%s)" % (money, t_g, t_a)
+                    query = "update user_details set Balance = Balance + %s where GMail_ID = '%s' and Aadhar = %s" % (money, t_g, t_a)
                     cu.execute(query)
                     print()
                     print(money, "deposited.")
