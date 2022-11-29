@@ -300,7 +300,6 @@ def ChangePassword():
                     cu.execute(query)
                     print()
                     print("Password changed successfully.")
-                    print()
                     loop = False
                     break
                 elif count > 1:
@@ -313,7 +312,6 @@ def ChangePassword():
                             cu.execute(query)
                             print()
                             print("Password changed successfully.")
-                            print()
                             loop = False
                             break
                     else:
@@ -341,7 +339,6 @@ def ChangePassword():
                     cu.execute(query)
                     print()
                     print("Password changed successfully.")
-                    print()
                     loop = False
                     break
             else:
